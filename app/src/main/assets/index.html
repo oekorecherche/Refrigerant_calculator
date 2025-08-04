@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Refrigerant calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="header-container">
+		<a href="https://www.oekorecherche.de/" class="logo-link">
+		  <img src="img/Logo_180dpi_whitebackground.png" alt="App Logo" class="app-logo">
+		</a>
+		<div class="theme-switch-wrapper">
+			<label class="theme-switch" for="checkbox">
+				<input type="checkbox" id="checkbox" />
+				<div class="slider round"></div>
+			</label>
+		</div>
+	</div>
+	<div class="app-wrapper">
+	  <h1 class="app-title">Refrigerant CO₂ equivalent calculator</h1>
+	  <div class="calculator-container">
+		<form id="calc-form" autocomplete="off">
+		  <div class="form-group">
+			<label for="dropdown">Choose a refrigerant:</label>
+			<select id="dropdown" required>
+			</select>
+		  </div>
+		  <div class="form-group">
+			<label for="numberInput">Enter quantity in kg:</label>
+			<input type="number" id="numberInput" required min="0" step="any" placeholder="Type a number...">
+		  </div>
+		  <button type="submit">Calculate CO<sub>2</sub> equivalents</button>
+		  <div class="output" id="outputField">
+			<div id="primary-result">Result will appear here.</div>
+			<div id="detailed-results" style="display: none;">
+				<div class="result-group car">
+					<img src="img/oeko_auto.png" alt="Car icon">
+					<div><strong>Driving a car</strong><br> = <strong><span id="calc_car_km"></span> km</strong> or <strong><span id="calc_car_earth"></span></strong> times around the globe</div>
+				</div>
+				<div class="result-group led">
+					<img src="img/oeko_birne.png" alt="LED icon">
+					<div><strong>LED light bulb (10 Watt)</strong><br> = <strong><span id="calc_led_hours"></span> hours</strong> or <strong><span id="calc_led_years"></span></strong> years</div>
+				</div>
+				<div class="result-group airplane">
+					<img src="img/oeko_flug.png" alt="Airplane icon">
+					<div><strong>One-way flight</strong><br> = <strong><span id="calc_plane_km"></span> km</strong> or <strong><span id="calc_plane_earth"></span></strong> times around the globe</div>
+				</div>
+			</div>
+		  </div>
+		</form>
+	  </div>
+  </div>
+<script src="script.js"></script>
+</body>
+</html>
