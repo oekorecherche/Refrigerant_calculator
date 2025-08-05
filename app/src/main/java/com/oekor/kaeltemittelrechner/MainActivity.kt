@@ -31,14 +31,42 @@ class MainActivity : ComponentActivity() {
                 factory = { context ->
                     // The WebView is created here. Configure it directly.
                     WebView(context).apply {
-                        webViewClient = WebViewClient() // Prevents links from opening in an external browser
+                        // Standard WebViewClient
+                        webViewClient = WebViewClient()
 
-                        // Access the settings of this WebView to enable features
+                        // Enable JavaScript and allow window opening
                         settings.javaScriptEnabled = true
-                        settings.domStorageEnabled = true // This is the key part for localStorage
+                        settings.javaScriptCanOpenWindowsAutomatically = true
+                        settings.setSupportMultipleWindows(true)
+                        settings.domStorageEnabled = true
+
+                        // Set WebChromeClient to handle `window.open`
+                        webChromeClient = object : android.webkit.WebChromeClient() {
+                            override fun onCreateWindow(
+                                view: WebView?,
+                                isDialog: Boolean,
+                                isUserGesture: Boolean,
+                                resultMsg: android.os.Message?
+                            ): Boolean {
+                                val newWebView = WebView(context)
+                                newWebView.webViewClient = object : WebViewClient() {
+                                    override fun shouldOverrideUrlLoading(
+                                        view: WebView,
+                                        url: String
+                                    ): Boolean {
+                                        val browserIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url))
+                                        context.startActivity(browserIntent)
+                                        return true
+                                    }
+                                }
+                                val transport = resultMsg?.obj as WebView.WebViewTransport
+                                transport.webView = newWebView
+                                resultMsg.sendToTarget()
+                                return true
+                            }
+                        }
 
                         // Load your local HTML file
-                        // Make sure your web files are in the 'app/src/main/assets' folder
                         loadUrl("file:///android_asset/index.html")
                     }
                 },

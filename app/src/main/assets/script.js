@@ -64,6 +64,10 @@ function switchTheme(e) {
 
 toggleSwitch.addEventListener('change', switchTheme, false);
 
+document.getElementById('logo-link-js').addEventListener('click', function() {
+    window.open('https://www.oekorecherche.de', '_system');
+});
+
 document.getElementById('calc-form').addEventListener('submit', function(e) {
   e.preventDefault();
   const selectedIdx = dropdown.value;
