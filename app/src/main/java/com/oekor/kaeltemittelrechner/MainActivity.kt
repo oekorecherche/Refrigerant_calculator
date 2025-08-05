@@ -5,6 +5,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.net.toUri
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,6 +43,7 @@ class MainActivity : ComponentActivity() {
 
                         // Set WebChromeClient to handle `window.open`
                         webChromeClient = object : android.webkit.WebChromeClient() {
+                            @Deprecated("Deprecated in Java")
                             override fun onCreateWindow(
                                 view: WebView?,
                                 isDialog: Boolean,
@@ -50,11 +52,12 @@ class MainActivity : ComponentActivity() {
                             ): Boolean {
                                 val newWebView = WebView(context)
                                 newWebView.webViewClient = object : WebViewClient() {
+                                    @Deprecated("Deprecated in Java")
                                     override fun shouldOverrideUrlLoading(
                                         view: WebView,
                                         url: String
                                     ): Boolean {
-                                        val browserIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url))
+                                        val browserIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, url.toUri())
                                         context.startActivity(browserIntent)
                                         return true
                                     }
