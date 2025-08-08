@@ -1,57 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Refrigerant calculator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+	<meta charset="UTF-8">
+	<title>Refrigerant calculator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="header-container">
-		<a id="logo-link-js" class="logo-link">
-			<img src="img/Logo_180dpi_whitebackground.png" alt="App Logo" class="app-logo">
-		</a>
-		<div class="theme-switch-wrapper">
-			<label class="theme-switch" for="checkbox">
-				<input type="checkbox" id="checkbox" />
-				<span class="slider round"></span>
-			</label>
-		</div>
+<div class="header-container">
+	<a id="logo-link-js" class="logo-link">
+		<img src="img/Logo_180dpi_whitebackground.png" alt="App Logo" class="app-logo">
+	</a>
+	<div class="theme-switch-wrapper">
+		<label class="theme-switch" for="checkbox">
+			<input type="checkbox" id="checkbox" />
+			<span class="slider round"></span>
+		</label>
 	</div>
-	<div class="app-wrapper">
-	  <h1 class="app-title">Refrigerant CO₂ equivalent calculator</h1>
-	  <div class="calculator-container">
+</div>
+<div class="app-wrapper">
+	<h1 class="app-title">Refrigerant CO₂ equivalent calculator</h1>
+	<div class="calculator-container">
 		<form id="calc-form" autocomplete="off">
-		  <div class="form-group">
-			<label for="dropdown">Choose a refrigerant:</label>
-			<select id="dropdown" required>
-			</select>
-		  </div>
-		  <div class="form-group">
-			<label for="numberInput">Enter quantity in kg:</label>
-			<input type="number" id="numberInput" required min="0" step="any" placeholder="Type a number...">
-		  </div>
-		  <button type="submit">Calculate CO<sub>2</sub> equivalents</button>
-		  <div class="output" id="outputField">
-			<div id="primary-result">Result will appear here.</div>
-			<div id="detailed-results" style="display: none;">
-				<div class="result-group car">
-					<img src="img/oeko_auto.png" alt="Car icon">
-					<div><strong>Driving a car</strong><br> = <strong><span id="calc_car_km"></span> km</strong> or <strong><span id="calc_car_earth"></span></strong> times around the globe</div>
-				</div>
-				<div class="result-group led">
-					<img src="img/oeko_birne.png" alt="LED icon">
-					<div><strong>LED light bulb (10 Watt)</strong><br> = <strong><span id="calc_led_hours"></span> hours</strong> or <strong><span id="calc_led_years"></span></strong> years</div>
-				</div>
-				<div class="result-group airplane">
-					<img src="img/oeko_flug.png" alt="Airplane icon">
-					<div><strong>One-way flight</strong><br> = <strong><span id="calc_plane_km"></span> km</strong> or <strong><span id="calc_plane_earth"></span></strong> times around the globe</div>
+			<div class="form-group">
+				<label for="dropdown">Choose a refrigerant:</label>
+				<select id="dropdown" required>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="numberInput">Enter quantity in kg:</label>
+				<input type="number" id="numberInput" required min="0" step="any" placeholder="Type a number...">
+			</div>
+			<div class="form-group">
+				<label>GWP value:</label>
+				<div class="gwp-button-group">
+					<button type="button" id="gwp-btn-0" class="gwp-btn active">EU</button>
+					<button type="button" id="gwp-btn-1" class="gwp-btn">AR4</button>
+					<button type="button" id="gwp-btn-2" class="gwp-btn">AR5</button>
+					<button type="button" id="gwp-btn-3" class="gwp-btn">AR6</button>
 				</div>
 			</div>
-		  </div>
+			<button type="submit">Calculate CO<sub>2</sub> equivalents</button>
+			<div class="output" id="outputField">
+				<div id="primary-result"></div><br>
+				<div id="detailed-results" style="display: none;">
+					<div class="result-group car">
+						<img src="img/oeko_auto.png" alt="Car icon">
+						<!-- Desktop Layout -->
+						<div class="desktop-only">
+							<div class="results-grid">
+								<div data-id="passengers-text"></div><br>
+								<div class="result-item">
+									<span>with a diesel engine for </span>
+									<span><span data-id="calc_car_km_diesel"></span> km or<br class="mobile-only"> <span data-id="calc_car_earth_diesel"></span> times around the globe</span>
+								</div>
+								<div class="result-item">
+									<span>with a petrol engine for</span>
+									<span><span data-id="calc_car_km_benzin"></span> km or<br class="mobile-only"> <span data-id="calc_car_earth_benzin"></span> times around the globe</span>
+								</div>
+								<div class="result-item">
+									<span>with a hybrid engine for</span>
+									<span><span data-id="calc_car_km_hybrid"></span> km or<br class="mobile-only"> <span data-id="calc_car_earth_hybrid"></span> times around the globe</span>
+								</div>
+								<div class="result-item">
+									<span>an electric engine for</span>
+									<span><span data-id="calc_car_km_elektro"></span> km or<br class="mobile-only"> <span data-id="calc_car_earth_elektro"></span> times around the globe</span>
+								</div>
+							</div>
+						</div>
+						<!-- Mobile Layout -->
+						<div class="mobile-only-table">
+							<p data-id="passengers-text"></p>
+							<table>
+								<thead>
+								<tr>
+									<th>Engine</th>
+									<th>Distance (km)</th>
+									<th>Times around globe</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td>Diesel</td>
+									<td class="number-cell"><span data-id="calc_car_km_diesel"></span></td>
+									<td class="number-cell"><span data-id="calc_car_earth_diesel"></span></td>
+								</tr>
+								<tr>
+									<td>Petrol</td>
+									<td class="number-cell"><span data-id="calc_car_km_benzin"></span></td>
+									<td class="number-cell"><span data-id="calc_car_earth_benzin"></span></td>
+								</tr>
+								<tr>
+									<td>Hybrid</td>
+									<td class="number-cell"><span data-id="calc_car_km_hybrid"></span></td>
+									<td class="number-cell"><span data-id="calc_car_earth_hybrid"></span></td>
+								</tr>
+								<tr>
+									<td>Electric</td>
+									<td class="number-cell"><span data-id="calc_car_km_elektro"></span></td>
+									<td class="number-cell"><span data-id="calc_car_earth_elektro"></span></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="result-group airplane">
+						<img src="img/oeko_flug.png" alt="Airplane icon">
+						<!-- Desktop Layout -->
+						<div class="desktop-only">
+							<div class="results-grid">
+								<div class="result-item">
+									<span>flying internationally for</span>
+									<span><span data-id="calc_plane_km"></span> km or<br class="mobile-only"> <span data-id="calc_plane_earth"></span> times around the globe</span>
+								</div>
+								<div class="result-item">
+									<span>flying from Frankfurt (Main) to Berlin</span>
+									<span><span data-id="calc_plane_km_withinGermany"></span> times</span>
+								</div>
+							</div>
+						</div>
+						<!-- Mobile Layout -->
+						<div class="mobile-only-table">
+							<table>
+								<thead>
+								<tr>
+									<th>Type</th>
+									<th>Distance (km)</th>
+									<th>Times around globe</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td>Intern.</td>
+									<td class="number-cell"><span data-id="calc_plane_km"></span></td>
+									<td class="number-cell"><span data-id="calc_plane_earth"></span></td>
+								</tr>
+								<tr>
+									<td>Frankfurt-Berlin</td>
+									<td class="number-cell" colspan="2"><span data-id="calc_plane_km_withinGermany"></span> times</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="result-group led">
+						<img src="img/oeko_birne.png" alt="LED icon">
+						<!-- Desktop Layout -->
+						<div class="desktop-only">
+							<div class="results-grid">
+								<div class="result-item">
+									<span>lighting a 10 Watt LED light bulb for</span>
+									<span><span data-id="calc_led_hours"></span> hours or <span data-id="calc_led_years"></span> years</span>
+								</div>
+							</div>
+						</div>
+						<!-- Mobile Layout -->
+						<div class="mobile-only-table">
+							<table>
+								<tbody>
+								<tr>
+									<td>10 W LED</td>
+									<td class="number-cell"><span data-id="calc_led_hours"></span> hours</td>
+									<td class="number-cell"><span data-id="calc_led_years"></span> years</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</form>
-	  </div>
-  </div>
+	</div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>

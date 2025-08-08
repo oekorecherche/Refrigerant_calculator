@@ -198,7 +198,22 @@ body.dark-mode .output {
     .result-group {
         display: flex;
         align-items: center;
-        margin: 1rem 0;
+        margin: 0; /* Reset margin */
+        padding: 1rem 0; /* Add padding */
+    }
+
+    /* .result-group:not(:first-child) {
+        border-top: 1px solid #e0e7ff;
+    } */
+    .result-group {
+      border-top: 1px solid #e0e7ff;
+    }
+
+    /* body.dark-mode .result-group:not(:first-child) {
+        border-top-color: #555;
+    } */
+    body.dark-mode .result-group {
+      border-top-color: #555;
     }
 
     .result-group img {
@@ -206,3 +221,93 @@ body.dark-mode .output {
         height: 40px;
         margin-right: 1rem;
     }
+
+	.gwp-button-group {
+		display: flex;
+	}
+
+	.gwp-btn {
+		background-color: #e9ecef; /* Light grey for light mode */
+		color: #333;
+		border: 1px solid #ccc;
+		padding: 0.5rem 1rem;
+		cursor: pointer;
+		transition: background-color 0.2s, color 0.2s;
+	}
+
+	.gwp-btn.active {
+		background-color: #415B2A; /* Active green for light mode */
+		color: #fff;
+		border-color: #415B2A;
+	}
+
+	body.dark-mode .gwp-btn {
+		background-color: #343a40; /* Dark grey for dark mode */
+		color: #f8f9fa;
+		border-color: #6c757d;
+	}
+
+	body.dark-mode .gwp-btn.active {
+		background-color: #5a7d3c; /* Brighter green for active in dark mode */
+		color: #fff;
+		border-color: #5a7d3c;
+	}
+
+	.results-grid {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.5rem 1rem;
+		width: 100%;
+	}
+
+	.result-item {
+		display: contents; /* Allows the children to participate in the parent's grid layout */
+	}
+
+	.result-item span:first-child {
+		/* font-weight: bold; */
+		text-align: left;
+	}
+
+	.result-item span:last-child {
+		text-align: right;
+	}
+
+/* Responsive Layout Switching */
+.mobile-only-table {
+    display: none; /* Hidden by default */
+}
+
+@media (max-width: 600px) {
+    .desktop-only {
+        display: none; /* Hide desktop layout on small screens */
+    }
+    .mobile-only-table {
+        display: block; /* Show mobile table on small screens */
+        width: 100%;
+        font-size: calc(10px + 1vw); /* Flexibly adjusts font size */
+    }
+    .mobile-only-table table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: calc(10px + 1vw); /* Flexibly adjusts font size */
+    }
+    .mobile-only-table th, .mobile-only-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        font-size: calc(10px + 1vw); /* Flexibly adjusts font size */
+    }
+    body.dark-mode .mobile-only-table th, body.dark-mode .mobile-only-table td {
+        border-color: #555;
+    }
+    .mobile-only-table th {
+        background-color: #f2f2f2;
+    }
+    body.dark-mode .mobile-only-table th {
+        background-color: #333;
+    }
+    .mobile-only-table .number-cell {
+        text-align: right;
+    }
+}
