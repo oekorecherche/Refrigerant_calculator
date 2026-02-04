@@ -108,8 +108,8 @@ body.dark-mode .output {
 }
 .app-wrapper {
   width: 100%;
-  margin: 0 auto 0 auto; /* top margin, centered horizontally */
-  box-sizing: border-box;   /* ensures padding/border are included in width */
+  margin: 0 auto 0 auto;
+  box-sizing: border-box;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }

@@ -78,6 +78,9 @@ function updateTextByDataId(id, text) {
 }
 
 function calculate() {
+    if (document.activeElement) {
+        document.activeElement.blur();
+    }
     const selectedIdx = dropdown.value;
     const amount = parseFloat(document.getElementById('numberInput').value);
     const primaryResult = document.getElementById('primary-result');
