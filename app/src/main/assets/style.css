@@ -272,3 +272,11 @@ body.dark-mode .mobile-only-table th {
 {
     text-align:right;
 }
+
+/* Dark Mode (When the class is active) */
+.dark-mode footer {
+    color: #aaaaaa;
+}
+.dark-mode footer a {
+    color: #8ab4f8; /* The readable blue for dark backgrounds */
+}
